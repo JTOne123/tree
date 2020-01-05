@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>dotnet_tree</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>he55</Authors>
+    <Version>0.2</Version>
+    <Description>Command line tool for display directories as trees.</Description>
+    <PackAsTool>true</PackAsTool>
+    <PackageTags>tool;tree</PackageTags>
+    <RepositoryUrl>https://github.com/he55/tree</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/he55/tree</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>packageicon.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../packageicon.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+</Project>
