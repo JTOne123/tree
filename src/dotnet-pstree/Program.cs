@@ -12,7 +12,7 @@ namespace dotnet_pstree
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Console.WriteLine("Windows not supported.");
+                Console.WriteLine("Not supported by Windows. Supports macOS, Linux, Windows Subsystem for Linux.");
                 return 1;
             }
 
@@ -20,7 +20,7 @@ namespace dotnet_pstree
             {
                 if (args[0].Equals("-v") || args[0].Equals("--version"))
                 {
-                    Console.WriteLine("0.2");
+                    Console.WriteLine("0.2.1");
                     return 0;
                 }
                 else if (args[0].Equals("-h") || args[0].Equals("--help"))
@@ -75,7 +75,7 @@ namespace dotnet_pstree
 
             if (rootPSInfo == null)
             {
-                throw new Exception();
+                throw new Exception("The program cannot continue to allow the error state encountered.");
             }
             return rootPSInfo;
         }
@@ -147,7 +147,7 @@ namespace dotnet_pstree
 
                 if (flag == 1)
                 {
-                    throw new Exception();
+                    throw new Exception("The program cannot continue to allow the error state encountered.");
                 }
 
                 psInfos.Add(psInfo);

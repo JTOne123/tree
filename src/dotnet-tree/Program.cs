@@ -17,7 +17,7 @@ namespace dotnet_tree
             {
                 if (args[0].Equals("-v") || args[0].Equals("--version"))
                 {
-                    Console.WriteLine("0.2");
+                    Console.WriteLine("0.2.1");
                     return 0;
                 }
                 else if (args[0].Equals("-h") || args[0].Equals("--help"))
@@ -52,9 +52,9 @@ namespace dotnet_tree
 
         private static void PrintDirectory(string directory)
         {
-            if (_depth > 10)
+            if (_depth > 15)
             {
-                throw new Exception();
+                throw new Exception("The path is too deep and supports up to 15 layers of paths.");
             }
 
             FileSystemInfo[] fileSystemInfo = new DirectoryInfo(directory).GetFileSystemInfos();
@@ -95,7 +95,7 @@ namespace dotnet_tree
                 int value = (_line >> i) & 1;
                 if (value == 1)
                 {
-                    stringBuilder.Append("│ ");
+                    stringBuilder.Append("| ");
                 }
                 else
                 {

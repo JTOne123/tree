@@ -42,7 +42,7 @@ namespace dotnet_pstree
                     Command = value;
                     break;
                 default:
-                    throw new Exception();
+                    throw new Exception($"Error value {value}");
             }
             ++_index;
         }
@@ -56,7 +56,7 @@ namespace dotnet_pstree
         {
             if (_depth > 10)
             {
-                throw new Exception();
+                throw new Exception("The path is too deep and supports up to 10 layers of paths.");
             }
 
             string prefix = string.Empty;
@@ -108,7 +108,7 @@ namespace dotnet_pstree
                 int value = (_line >> i) & 1;
                 if (value == 1)
                 {
-                    stringBuilder.Append("│ ");
+                    stringBuilder.Append("| ");
                 }
                 else
                 {
