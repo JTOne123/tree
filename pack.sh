@@ -1,3 +1,4 @@
+#!/bin/bash
 PACKDIR="packs"
 
 mkdir -p $PACKDIR
