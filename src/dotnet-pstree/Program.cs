@@ -18,25 +18,23 @@ namespace dotnet_pstree
 
             if (args.Length > 0)
             {
-                if (args[0].Equals("-v") || args[0].Equals("--version"))
+                switch (args[0])
                 {
-                    Console.WriteLine("0.2.1");
-                    return 0;
-                }
-                else if (args[0].Equals("-h") || args[0].Equals("--help"))
-                {
-                    PrintHelp();
-                    return 0;
-                }
-                else
-                {
-                    PrintHelp();
-                    return 1;
+                    case "-v":
+                    case "--version":
+                        Console.WriteLine("0.2.2");
+                        return 0;
+                    case "-h":
+                    case "--help":
+                        PrintHelp();
+                        return 0;
+                    default:
+                        PrintHelp();
+                        return 1;
                 }
             }
 
             using StreamReader standardOutput = RunPSCommand();
-
             IList<PSInfo> psInfos = GetPSInfos(standardOutput);
             PSInfo psInfo = FindRootPSInfo(psInfos);
             psInfo.PrintPSTree();
@@ -73,7 +71,7 @@ namespace dotnet_pstree
                 }
             }
 
-            if (rootPSInfo == null)
+            if (rootPSInfo is null)
             {
                 throw new Exception("The program cannot continue to allow the error state encountered.");
             }
@@ -101,9 +99,8 @@ namespace dotnet_pstree
         private static IList<PSInfo> GetPSInfos(StreamReader standardOutput)
         {
             List<PSInfo> psInfos = new List<PSInfo>();
-
             string? header = standardOutput.ReadLine();
-            if (header == null)
+            if (header is null)
             {
                 return psInfos;
             }
@@ -111,15 +108,15 @@ namespace dotnet_pstree
             for (; ; )
             {
                 string? line = standardOutput.ReadLine();
-                if (line == null)
+                if (line is null)
                 {
                     break;
                 }
 
                 PSInfo psInfo = new PSInfo();
-
                 int index = 0;
                 int flag = 0;
+
                 for (int i = 0; i < line.Length; i++)
                 {
                     if (flag == 0 && line[i] != ' ')

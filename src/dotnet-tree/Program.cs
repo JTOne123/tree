@@ -15,20 +15,19 @@ namespace dotnet_tree
         {
             if (args.Length > 0)
             {
-                if (args[0].Equals("-v") || args[0].Equals("--version"))
+                switch (args[0])
                 {
-                    Console.WriteLine("0.2.1");
-                    return 0;
-                }
-                else if (args[0].Equals("-h") || args[0].Equals("--help"))
-                {
-                    PrintHelp();
-                    return 0;
-                }
-                else
-                {
-                    PrintHelp();
-                    return 1;
+                    case "-v":
+                    case "--version":
+                        Console.WriteLine("0.2.2");
+                        return 0;
+                    case "-h":
+                    case "--help":
+                        PrintHelp();
+                        return 0;
+                    default:
+                        PrintHelp();
+                        return 1;
                 }
             }
 
@@ -61,18 +60,17 @@ namespace dotnet_tree
             ++_depth;
             for (int i = 0; i < fileSystemInfo.Length; i++)
             {
-                if (i == fileSystemInfo.Length - 1)
-                {
-                    PrintName(1, fileSystemInfo[i].Name);
-                }
-                else
-                {
-                    PrintName(0, fileSystemInfo[i].Name);
-                }
+                int index = fileSystemInfo.Length - 1;
+                string formatValue = string.Format(
+                    "{0} {1}",
+                    i == index ? "\\---" : "|--=",
+                    fileSystemInfo[i].Name);
+
+                PrintName(formatValue);
 
                 if (fileSystemInfo[i].Attributes.HasFlag(FileAttributes.Directory))
                 {
-                    if (i == fileSystemInfo.Length - 1)
+                    if (i == index)
                     {
                         PrintDirectory(fileSystemInfo[i].FullName);
                     }
@@ -87,7 +85,7 @@ namespace dotnet_tree
             --_depth;
         }
 
-        private static void PrintName(int flag, string name)
+        private static void PrintName(string name)
         {
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 1; i < _depth; i++)
@@ -103,24 +101,16 @@ namespace dotnet_tree
                 }
             }
 
-            string prefix = string.Empty;
-            if (flag == 1)
-            {
-                prefix = "\\---";
-            }
-            else
-            {
-                prefix = "|--=";
-            }
-
-            string formatValue = string.Format("{0}{1} {2}", stringBuilder.ToString(), prefix, name);
+            stringBuilder.Append(name);
+            name = stringBuilder.ToString();
 
             if (_isOutputRedirected)
             {
-                Console.WriteLine(formatValue);
+                Console.WriteLine(name);
                 return;
             }
-            Console.WriteLine(formatValue.Length > _bufferWidth ? formatValue.Substring(0, _bufferWidth) : formatValue);
+
+            Console.WriteLine(name.Length > _bufferWidth ? name.Substring(0, _bufferWidth) : name);
         }
     }
 }

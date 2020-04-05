@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <Authors>he55</Authors>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
     <Description>Command line tool for display directories as trees.</Description>
     <PackAsTool>true</PackAsTool>
     <PackageTags>tool;tree</PackageTags>

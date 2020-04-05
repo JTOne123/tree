@@ -19,7 +19,6 @@ namespace dotnet_pstree
         public int PPID { get; set; }
         public int PGID { get; set; }
         public string Command { get; set; } = string.Empty;
-
         public IList<PSInfo> Children => _children ??= new List<PSInfo>();
 
         public void SetValue(string value)
@@ -103,6 +102,12 @@ namespace dotnet_pstree
         private void PrintName(string prefix)
         {
             StringBuilder stringBuilder = new StringBuilder();
+
+            if (_depth > 0)
+            {
+                stringBuilder.Append(" ");
+            }
+
             for (int i = 1; i < _depth; i++)
             {
                 int value = (_line >> i) & 1;
@@ -129,6 +134,7 @@ namespace dotnet_pstree
                 Console.WriteLine(formatValue);
                 return;
             }
+
             Console.WriteLine(formatValue.Length > _bufferWidth ? formatValue.Substring(0, _bufferWidth) : formatValue);
         }
     }
